@@ -2,22 +2,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.mycompany</groupId>
+	<groupId>85c9dcd2-4420-412b-b571-d5f26ac29cc3</groupId>
 	<artifactId>cicd-demo-wt-githubactions2</artifactId>
 	<version>1.0.0</version>
 	<packaging>mule-application</packaging>
 
 	<name>cicd-demo-wt-githubactions2</name>
-
-	<distributionManagement>
-	    <repository>
-	      <id>PrivateExchangeRepository</id>
-	      <name>Corporate Repository</name>
-	      <url>https://maven.anypoint.mulesoft.com/api/v3/organizations/f444267a-6209-4889-bf39-013513ca1b5a/maven</url>
-	      <layout>default</layout>
-	    </repository>
-	</distributionManagement>
-
 	
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -105,7 +95,7 @@
 		<repository>
 			<id>PrivateExchangeRepository</id>
 			<name>Private Exchange repository</name>
-		    <url>https://maven.anypoint.mulesoft.com/api/v3/organizations/f444267a-6209-4889-bf39-013513ca1b5a/maven</url>
+		    <url>https://maven.anypoint.mulesoft.com/api/v3/maven</url>
 			<layout>default</layout>
 		</repository>
 	</repositories>
@@ -122,4 +112,13 @@
 		</pluginRepository>
 	</pluginRepositories>
 
+	<distributionManagement>
+	    <repository>
+	      <id>PrivateExchangeRepository</id>
+	      <name>Corporate Repository</name>
+	      <url>https://maven.anypoint.mulesoft.com/api/v3/organizations/${project.groupId}/maven</url>
+	      <layout>default</layout>
+	    </repository>
+	</distributionManagement>
+	
 </project>
