@@ -27,6 +27,7 @@ jobs:
         distribution: 'zulu'
         java-version: 8
     - name: Build with Maven
+      working-directory: ./cicd-demo-wt-githubactions
       run: mvn -B package --file pom.xml
     - name: Stamp artifact file name with commit hash
       run: |
@@ -62,6 +63,7 @@ jobs:
       env:
         USERNAME: ${{ secrets.anypoint_platform_username }}
         PASSWORD: ${{ secrets.anypoint_platform_password }}
+      working-directory: ./cicd-demo-wt-githubactions
       run: |
         artifactName=$(ls *.jar | head -1)
         mvn deploy -DmuleDeploy \
