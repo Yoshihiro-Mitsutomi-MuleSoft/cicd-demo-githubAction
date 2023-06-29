@@ -13,7 +13,7 @@
 	    <repository>
 	      <id>PrivateExchangeRepository</id>
 	      <name>Corporate Repository</name>
-	      <url>https://maven.anypoint.mulesoft.com/api/v3/organizations/85c9dcd2-4420-412b-b571-d5f26ac29cc3/maven</url>
+	      <url>https://maven.anypoint.mulesoft.com/api/v3/organizations/f444267a-6209-4889-bf39-013513ca1b5a/maven</url>
 	      <layout>default</layout>
 	    </repository>
 	</distributionManagement>
@@ -105,7 +105,7 @@
 		<repository>
 			<id>PrivateExchangeRepository</id>
 			<name>Private Exchange repository</name>
-		    <url>https://maven.anypoint.mulesoft.com/api/v3/organizations/85c9dcd2-4420-412b-b571-d5f26ac29cc3/maven</url>
+		    <url>https://maven.anypoint.mulesoft.com/api/v3/organizations/f444267a-6209-4889-bf39-013513ca1b5a/maven</url>
 			<layout>default</layout>
 		</repository>
 	</repositories>
