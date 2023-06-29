@@ -30,6 +30,7 @@ jobs:
       working-directory: ./cicd-demo-wt-githubactions
       run: mvn -B package --file pom.xml
     - name: Stamp artifact file name with commit hash
+      working-directory: ./cicd-demo-wt-githubactions
       run: |
         artifactName1=$(ls target/*.jar | head -1)
         commitHash=$(git rev-parse --short "$GITHUB_SHA")
