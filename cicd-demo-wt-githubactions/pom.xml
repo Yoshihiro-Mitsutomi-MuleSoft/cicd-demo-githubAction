@@ -36,7 +36,7 @@
 				      <businessGroup>Salesforce.com\demo01</businessGroup>
 				      <environment>${environment}</environment>
 				      <target>${anypoint.psname}</target>
-				      <muleVersion>${app.runtime}</muleVersion>
+				      <muleVersion>4.4.0</muleVersion>
 				      <username>${anypoint.username}</username>
 				      <password>${anypoint.password}</password>
 				      <applicationName>cicd-demo-wt-githubactions</applicationName>
