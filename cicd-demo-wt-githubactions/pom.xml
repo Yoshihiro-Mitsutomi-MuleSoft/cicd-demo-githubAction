@@ -3,11 +3,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.mycompany</groupId>
-	<artifactId>cicd-demo-wt-githubactions</artifactId>
+	<artifactId>cicd-demo-wt-githubactions2</artifactId>
 	<version>1.0.0</version>
 	<packaging>mule-application</packaging>
 
-	<name>cicd-demo-wt-githubactions</name>
+	<name>cicd-demo-wt-githubactions2</name>
 
 	<distributionManagement>
 	    <repository>
