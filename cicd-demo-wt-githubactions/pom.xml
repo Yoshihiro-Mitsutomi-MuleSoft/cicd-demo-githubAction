@@ -30,7 +30,22 @@
 				<version>${mule.maven.plugin.version}</version>
 				<extensions>true</extensions>
 				<configuration>
-					<classifier>---- select project type ----</classifier>
+					<cloudhub2Deployment>
+				      <uri>https://anypoint.mulesoft.com</uri>
+				      <provider>MC</provider>
+				      <businessGroup>Salesforce.com\demo01</businessGroup>
+				      <environment>${environment}</environment>
+				      <target>${anypoint.psname}</target>
+				      <muleVersion>${app.runtime}</muleVersion>
+				      <username>${anypoint.username}</username>
+				      <password>${anypoint.password}</password>
+				      <applicationName>cicd-demo-wt-githubactions</applicationName>
+				      <replicas>1</replicas>
+				      <vCores>0.1</vCores>
+				      <deploymentSettings>
+				        <generateDefaultPublicUrl>true</generateDefaultPublicUrl>
+				      </deploymentSettings>
+				    </cloudhub2Deployment>
 				</configuration>
 			</plugin>
 		</plugins>
