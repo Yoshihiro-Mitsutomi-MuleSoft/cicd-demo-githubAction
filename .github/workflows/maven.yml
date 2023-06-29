@@ -65,7 +65,7 @@ jobs:
       run: |
         artifactName=$(ls *.jar | head -1)
         mvn -e deploy -DmuleDeploy \
-         -Denv="Sandbox" \
+         -Denvironment="Sandbox" \
          -Danypoint.psname="ps-ym-demo01" \
          -Danypoint.username="$USERNAME" \
          -Danypoint.password="$PASSWORD" 
