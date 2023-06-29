@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:api-gateway="http://www.mulesoft.org/schema/mule/api-gateway" xmlns:secure-properties="http://www.mulesoft.org/schema/mule/secure-properties"
+	xmlns:anypoint-mq="http://www.mulesoft.org/schema/mule/anypoint-mq"
+	xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/anypoint-mq http://www.mulesoft.org/schema/mule/anypoint-mq/current/mule-anypoint-mq.xsd
+http://www.mulesoft.org/schema/mule/secure-properties http://www.mulesoft.org/schema/mule/secure-properties/current/mule-secure-properties.xsd
+http://www.mulesoft.org/schema/mule/api-gateway http://www.mulesoft.org/schema/mule/api-gateway/current/mule-api-gateway.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="03a4b780-aab5-4c31-8c52-5c4233d9120f" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<global-property doc:name="Global Property" doc:id="7114a78c-650c-40b2-9079-a6086a47ed78" name="env" value="dev" />
+	<anypoint-mq:config name="Anypoint_MQ_Config" doc:name="Anypoint MQ Config" doc:id="050a3b1a-21ec-476d-aa13-768ab926e226" >
+		<anypoint-mq:connection url="${mq.url}" clientId="${secure::mq.appId}" clientSecret="${secure::mq.clientSecret}" />
+	</anypoint-mq:config>
+	<secure-properties:config name="Secure_Properties_Config" doc:name="Secure Properties Config" doc:id="40b570c0-23b0-4595-a72d-a20c4170316e" file="${env}-secure-config.yaml" key="mulesoft" >
+		<secure-properties:encrypt algorithm="Blowfish" />
+	</secure-properties:config>
+	<configuration-properties doc:name="Configuration properties" doc:id="8ddcd164-4a4f-4f68-ad91-d2a25f798d4b" file="${env}-config.yaml" />
+	<api-gateway:autodiscovery apiId="${apiInstaceId}" ignoreBasePath="true" doc:name="API Autodiscovery" doc:id="fa455d0a-ff22-4940-988e-f469b428b06a" flowRef="cicd-demo-wt-githubactionsFlow" />
+	<flow name="cicd-demo-wt-githubactionsFlow" doc:id="dff6510f-4a6c-42ad-95fb-ce5762bbbc64" >
+		<http:listener doc:name="Listener" doc:id="cde17ed8-62ba-47ba-bb15-77596b9278dc" config-ref="HTTP_Listener_config" path="/go"/>
+		<try doc:name="Try" doc:id="c84b5e9d-6f46-4ccb-b071-e9f97737e2b3" >
+			<anypoint-mq:consume doc:name="Consume" doc:id="7a9d2b52-f279-4370-a1ce-b73a7cc060bd" config-ref="Anypoint_MQ_Config" destination="cicd-queue" pollingTime="1000" />
+			<error-handler >
+				<on-error-continue enableNotifications="true" logException="true" doc:name="On Error Continue(ANYPOINT-MQ:TIMEOUT)" doc:id="ba90a195-1ee4-4802-8a60-856dfe5e9958" type="ANYPOINT-MQ:TIMEOUT">
+					<set-payload value='#[%dw 2.0 output application/json --- {msg: "message does not exist in the queue"}]' doc:name="Set Payload" doc:id="5c487773-eefe-483f-9a4f-e64a634e1d33" />
+				</on-error-continue>
+			</error-handler>
+		</try>
+		<ee:transform doc:name="set Response" doc:id="33a2f9df-53e0-432e-8c36-371dbeeca0df" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	msg: "hi, there!",
+	version: "1.0.0",
+	deployment: p('env'),
+	mq: {
+		messages: payload
+	}
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+</mule>
