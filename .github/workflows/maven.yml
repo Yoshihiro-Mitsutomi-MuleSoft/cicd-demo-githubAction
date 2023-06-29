@@ -64,7 +64,7 @@ jobs:
       working-directory: ./cicd-demo-wt-githubactions
       run: |
         artifactName=$(ls *.jar | head -1)
-        mvn -e -X deploy -DmuleDeploy \
+        mvn -e -X clean deploy -DmuleDeploy \
          -Denvironment="Sandbox" \
          -Danypoint.psname="ps-ym-demo01" \
          -Danypoint.username="$USERNAME" \
