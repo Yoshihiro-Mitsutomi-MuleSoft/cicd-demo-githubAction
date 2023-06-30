@@ -6,44 +6,8 @@ on:
   pull_request:
     branches: [ master ]
     
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    env:
-      working-directory: ./cicd-demo-wt-githubactions
-    steps:
-    - name: Checkout this repo
-      uses: actions/checkout@v3
-    - name: Cache dependencies
-      uses: actions/cache@v3
-      with:
-        path: ~/.m2/repository
-        key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-        restore-keys: |
-          ${{ runner.os }}-maven-
-    - name: Set up JDK 1.8
-      uses: actions/setup-java@v3
-      with:
-        distribution: 'zulu'
-        java-version: 8
-    - name: Build with Maven
-      working-directory: ./cicd-demo-wt-githubactions
-      run: mvn -B package --file pom.xml
-    - name: Stamp artifact file name with commit hash
-      working-directory: ./cicd-demo-wt-githubactions
-      run: |
-        artifactName1=$(ls target/*.jar | head -1)
-        commitHash=$(git rev-parse --short "$GITHUB_SHA")
-        artifactName2=$(ls target/*.jar | head -1 | sed "s/.jar/-$commitHash.jar/g")
-        mv $artifactName1 $artifactName2
-    - name: Upload artifact 
-      uses: actions/upload-artifact@v3
-      with:
-          name: artifacts
-          path: target/*.jar
-  
+jobs:  
   exchangedep:
-    needs: build
     runs-on: ubuntu-latest
     env:
       working-directory: ./cicd-demo-wt-githubactions
@@ -64,7 +28,7 @@ jobs:
       uses: whelk-io/maven-settings-xml-action@v20
       with:
         repositories: '[{ "id": "anypoint-exchange-v3", "url": "https://maven.anypoint.mulesoft.com/api/v3/maven" }]'
-        servers: '[{ "id": "anypoint-exchange-v3", "username": "$USERNAME", "password": "$PASSWORD" }]'
+        servers: '[{ "id": "anypoint-exchange-v3", "username": "${env.$USERNAME}", "password": "${env.PASSWORD}" }]'
     - name: Deploy to Exchange
       env:
         USERNAME: ${{ secrets.anypoint_platform_username }}
