@@ -56,4 +56,6 @@ jobs:
          -Pdev \
          -Danypoint.psname="ps-ym-demo01" \
          -Danypoint.username="$USERNAME" \
-         -Danypoint.password="$PASSWORD"
+         -Danypoint.password="$PASSWORD" \
+         -Danypoint.env.id="$ENVID" \
+         -Danypoint.env.secret="$ENVSECRET"
