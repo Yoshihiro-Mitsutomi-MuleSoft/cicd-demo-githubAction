@@ -17,7 +17,7 @@
 		<mule.maven.plugin.version>3.8.2</mule.maven.plugin.version>
 		<anypoint.platform.client_id>b9552b564d4e4ca98f687e2718cbc7ec</anypoint.platform.client_id>
         <anypoint.platform.client_secret>e646aF5C6Ab34F749BC4510bf4f8Da33</anypoint.platform.client_secret>
-        <env>${env}</env>
+        <mule.env>dev</mule.env>
 	</properties>
 
 	<build>
