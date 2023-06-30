@@ -2,13 +2,13 @@ name: Deploy to Production
 
 on:
   push:
-    branches: [ master2 ]
+    branches: [ master ]
 
 env:
   USERNAME: ${{ secrets.anypoint_platform_username }}
   PASSWORD: ${{ secrets.anypoint_platform_password }}
-  ENVID: ${{ secrets.env_client_id }}
-  ENVSECRET: ${{ secrets.env_client_secret }}
+  ENVID: ${{ secrets.prod_env_client_id }}
+  ENVSECRET: ${{ secrets.prod_env_client_secret }}
 
 jobs:
   deploy:
@@ -24,8 +24,8 @@ jobs:
         mvn -e -X clean deploy -DmuleDeploy \
          -Denvironment="prod" \
          -Pprod \
-         -Danypoint.psname="ps-ym-demo01" \
+         -Danypoint.psname="ps-ym-demo01-prod" \
          -Danypoint.username="$USERNAME" \
          -Danypoint.password="$PASSWORD" \
-         -Dap.client_id="$ENVID" \
-         -Dap.client_secret="$ENVSECRET"
+         -Danypoint.env.id="$ENVID" \
+         -Danypoint.env.secret="$ENVSECRET"

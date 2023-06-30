@@ -2,7 +2,9 @@ name: Add to Exchange and Deploy to Sandbox
 
 on:
   push:
-    branches: [ master ]
+    branches:
+      - releases/**
+      - dev
 
 env:
   USERNAME: ${{ secrets.anypoint_platform_username }}
