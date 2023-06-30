@@ -58,10 +58,13 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-maven-
     - name: maven-settings-xml-action
+      env:
+        USERNAME: ${{ secrets.anypoint_platform_username }}
+        PASSWORD: ${{ secrets.anypoint_platform_password }}
       uses: whelk-io/maven-settings-xml-action@v20
       with:
         repositories: '[{ "id": "anypoint-exchange-v3", "url": "https://maven.anypoint.mulesoft.com/api/v3/maven" }]'
-        servers: '[{ "id": "anypoint-exchange-v3", "username": "ymdemo1", "password": "Mule$0ft" }]'
+        servers: '[{ "id": "anypoint-exchange-v3", "username": "$USERNAME", "password": "$PASSWORD" }]'
     - name: Deploy to Exchange
       env:
         USERNAME: ${{ secrets.anypoint_platform_username }}
@@ -94,6 +97,8 @@ jobs:
       env:
         USERNAME: ${{ secrets.anypoint_platform_username }}
         PASSWORD: ${{ secrets.anypoint_platform_password }}
+        ENVID: ${{ secrets.env_client_id }}
+        ENVSECRET: ${{ secrets.env_client_secret }}
       working-directory: ./cicd-demo-wt-githubactions
       run: |
         artifactName=$(ls *.jar | head -1)
@@ -101,4 +106,6 @@ jobs:
          -Denvironment="Sandbox" \
          -Danypoint.psname="ps-ym-demo01" \
          -Danypoint.username="$USERNAME" \
-         -Danypoint.password="$PASSWORD" 
+         -Danypoint.username="$USERNAME" \
+         -Danypoint.username="$ENVID" \
+         -Danypoint.password="$ENVSECRET" 
