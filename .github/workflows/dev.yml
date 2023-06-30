@@ -1,4 +1,4 @@
-name: Build and Deploy to Sandbox
+name: Add to Exchange and Deploy to Sandbox
 
 on:
   push:
@@ -10,12 +10,12 @@ env:
   ENVID: ${{ secrets.env_client_id }}
   ENVSECRET: ${{ secrets.env_client_secret }}
 
-jobs:  
+jobs:
   exchangedep:
     runs-on: ubuntu-latest
     env:
       working-directory: ./cicd-demo-wt-githubactions
-    steps:    
+    steps:
     - name: Checkout this repo
       uses: actions/checkout@v3
     - name: Cache dependencies
@@ -25,7 +25,7 @@ jobs:
         key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
         restore-keys: |
           ${{ runner.os }}-maven-
-    - name: maven-settings-xml-action 
+    - name: maven-settings-xml-action
       uses: whelk-io/maven-settings-xml-action@v20
       with:
         repositories: '[{ "id": "anypoint-exchange-v3", "url": "https://maven.anypoint.mulesoft.com/api/v3/maven" }]'
@@ -38,14 +38,14 @@ jobs:
          -Denvironment="Sandbox" \
          -Danypoint.psname="ps-ym-demo01" \
          -Danypoint.username="$USERNAME" \
-         -Danypoint.password="$PASSWORD" 
-  
+         -Danypoint.password="$PASSWORD"
+
   deploy:
     needs: exchangedep
     runs-on: ubuntu-latest
     env:
       working-directory: ./cicd-demo-wt-githubactions
-    steps:    
+    steps:
     - name: Checkout this repo
       uses: actions/checkout@v3
     - name: Cache dependencies
@@ -65,4 +65,4 @@ jobs:
          -Danypoint.username="$USERNAME" \
          -Danypoint.password="$PASSWORD" \
          -Danypoint.platform.client_id="$ENVID" \
-         -Danypoint.platform.client_secret="$ENVSECRET" 
+         -Danypoint.platform.client_secret="$ENVSECRET"
