@@ -7,8 +7,8 @@ on:
 env:
   USERNAME: ${{ secrets.anypoint_platform_username }}
   PASSWORD: ${{ secrets.anypoint_platform_password }}
-  ENVID: ${{ secrets.SANDBOX_ENV_CLIENT_ID }}
-  ENVSECRET: ${{ secrets.SANDBOX_ENV_CLIENT_SECRET }}
+  ENVID: ${{ secrets.sandbox_env_client_id }}
+  ENVSECRET: ${{ secrets.sandbox_env_client_secret }}
 
 jobs:
   exchangedep:
