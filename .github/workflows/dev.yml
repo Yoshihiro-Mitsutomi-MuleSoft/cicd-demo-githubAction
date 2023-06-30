@@ -64,5 +64,5 @@ jobs:
          -Danypoint.psname="ps-ym-demo01" \
          -Danypoint.username="$USERNAME" \
          -Danypoint.password="$PASSWORD" \
-         -Danypoint.platform.client_id="$ENVID" \
-         -Danypoint.platform.client_secret="$ENVSECRET"
+         -M-Danypoint.platform.client_id="$ENVID" \
+         -M-Danypoint.platform.client_secret="$ENVSECRET"

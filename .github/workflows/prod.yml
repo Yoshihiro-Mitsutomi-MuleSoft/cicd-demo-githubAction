@@ -1,0 +1,31 @@
+name: Deploy to Production
+
+on:
+  push:
+    branches: [ master2 ]
+
+env:
+  USERNAME: ${{ secrets.anypoint_platform_username }}
+  PASSWORD: ${{ secrets.anypoint_platform_password }}
+  ENVID: ${{ secrets.env_client_id }}
+  ENVSECRET: ${{ secrets.env_client_secret }}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      working-directory: ./cicd-demo-wt-githubactions
+    steps:
+    - name: Checkout this repo
+      uses: actions/checkout@v3
+    - name: Deploy to Prod
+      working-directory: ./cicd-demo-wt-githubactions
+      run: |
+        artifactName=$(ls *.jar | head -1)
+        mvn -e -X clean deploy -DmuleDeploy \
+         -Denvironment="Sandbox" \
+         -Danypoint.psname="ps-ym-demo01" \
+         -Danypoint.username="$USERNAME" \
+         -Danypoint.password="$PASSWORD" \
+         -M-Danypoint.platform.client_id="$ENVID" \
+         -M-Danypoint.platform.client_secret="$ENVSECRET"
