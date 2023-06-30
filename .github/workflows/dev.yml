@@ -51,7 +51,6 @@ jobs:
     - name: Deploy to Sandbox
       working-directory: ./cicd-demo-wt-githubactions
       run: |
-        artifactName=$(ls *.jar | head -1)
         mvn -e -X clean deploy -DmuleDeploy \
          -Denvironment="Sandbox" \
          -Danypoint.psname="ps-ym-demo01" \
