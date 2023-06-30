@@ -30,7 +30,7 @@ http://www.mulesoft.org/schema/mule/api-gateway http://www.mulesoft.org/schema/m
 				</on-error-continue>
 			</error-handler>
 		</try>
-		<logger level="INFO" doc:name="Logger" doc:id="51357645-6192-459c-8718-a10ce7e140b7" message="ABCDE"/>
+		<logger level="INFO" doc:name="Logger" doc:id="51357645-6192-459c-8718-a10ce7e140b7" message="ABC"/>
 		<ee:transform doc:name="set Response" doc:id="33a2f9df-53e0-432e-8c36-371dbeeca0df" >
 			<ee:message >
 				<ee:set-payload ><![CDATA[%dw 2.0
