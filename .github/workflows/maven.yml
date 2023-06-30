@@ -63,6 +63,6 @@ jobs:
          -Denvironment="Sandbox" \
          -Danypoint.psname="ps-ym-demo01" \
          -Danypoint.username="$USERNAME" \
-         -Danypoint.password="$USERNAME" \
+         -Danypoint.password="$PASSWORD" \
          -Danypoint.platform.client_id="$ENVID" \
          -Danypoint.platform.client_secret="$ENVSECRET" 
