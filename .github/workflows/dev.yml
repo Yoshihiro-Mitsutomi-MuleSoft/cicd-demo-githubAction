@@ -48,13 +48,6 @@ jobs:
     steps:
     - name: Checkout this repo
       uses: actions/checkout@v3
-    - name: Cache dependencies
-      uses: actions/cache@v3
-      with:
-        path: ~/.m2/repository
-        key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-        restore-keys: |
-          ${{ runner.os }}-maven-
     - name: Deploy to Sandbox
       working-directory: ./cicd-demo-wt-githubactions
       run: |
