@@ -53,7 +53,6 @@ jobs:
       run: |
         mvn clean deploy -DmuleDeploy \
          -Denvironment="Sandbox" \
-         -Pdev \
          -Dtarget.env="dev"
          -Danypoint.psname="ps-ym-demo01" \
          -Danypoint.username="$USERNAME" \
