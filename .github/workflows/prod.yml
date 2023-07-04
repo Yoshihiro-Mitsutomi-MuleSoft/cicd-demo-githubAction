@@ -23,7 +23,6 @@ jobs:
       run: |
         mvn clean deploy -DmuleDeploy \
          -Denvironment="prod" \
-         -Pprod \
          -Dtarget.env="prod" \
          -Danypoint.psname="ps-ym-demo01-prod" \
          -Danypoint.username="$USERNAME" \
