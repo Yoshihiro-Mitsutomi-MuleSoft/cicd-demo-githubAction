@@ -36,7 +36,7 @@ jobs:
       working-directory: ./cicd-demo-wt-githubactions
       run: |
         artifactName=$(ls *.jar | head -1)
-        mvn -e -X clean deploy \
+        mvn clean deploy \
          -Danypoint.username="$USERNAME" \
          -Danypoint.password="$PASSWORD"
 
@@ -51,9 +51,10 @@ jobs:
     - name: Deploy to Sandbox
       working-directory: ./cicd-demo-wt-githubactions
       run: |
-        mvn -e -X clean deploy -DmuleDeploy \
+        mvn clean deploy -DmuleDeploy \
          -Denvironment="Sandbox" \
          -Pdev \
+         -Dtarget.env="dev" \
          -Danypoint.psname="ps-ym-demo01" \
          -Danypoint.username="$USERNAME" \
          -Danypoint.password="$PASSWORD" \

@@ -21,9 +21,9 @@ jobs:
     - name: Deploy to Prod
       working-directory: ./cicd-demo-wt-githubactions
       run: |
-        mvn -e -X clean deploy -DmuleDeploy \
+        mvn clean deploy -DmuleDeploy \
          -Denvironment="prod" \
-         -Pprod \
+         -Pdev \
          -Dtarget.env="prod" \
          -Danypoint.psname="ps-ym-demo01-prod" \
          -Danypoint.username="$USERNAME" \
