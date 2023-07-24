@@ -38,7 +38,7 @@ output application/json
 ---
 {
 	msg: "hi, there!",
-	version: "1.0.4",
+	version: "1.0.5",
 	deployment: p('env'),
 	mq: {
 		messages: payload
